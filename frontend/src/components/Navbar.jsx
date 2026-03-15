@@ -30,7 +30,11 @@ return ( <nav className="navbar"> <div className="logo">LOCALWALA</div>
     <li><Link to="/">Home</Link></li>
     <li><Link to="/services">Services</Link></li>
     <li><Link to="/contact">Contact</Link></li>
+<<<<<<< HEAD
 <li><Link to="/dashboard">Dashboard</Link></li>
+=======
+     <li><Link to="/dashboard">Dashboard</Link></li>
+>>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
 
     {!user ? (
       <li>

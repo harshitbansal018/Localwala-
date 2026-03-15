@@ -61,8 +61,12 @@ router.delete("/:id", protect, async (req, res) => {
 // GET SHOP BY SLUG (Public)
 router.get("/slug/:slug", async (req, res) => {
   try {
+<<<<<<< HEAD
    const shop = await Shop.findOne({ slug: req.params.slug })
   .populate("owner", "email phone name");
+=======
+    const shop = await Shop.findOne({ slug: req.params.slug });
+>>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
 
     if (!shop) {
       return res.status(404).json({ message: "Shop not found" });
