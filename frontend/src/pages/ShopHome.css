@@ -1,0 +1,119 @@
+/* ===== SHOP HOME ===== */
+.shop-home {
+  padding: 48px 24px 64px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.shop-home-intro {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.shop-home-intro h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #0f172a, #334155);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shop-home-intro p {
+  font-size: 1.05rem;
+  color: #64748b;
+  max-width: 500px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+
+.shop-home-cta {
+  display: inline-block;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+}
+
+.shop-home-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.5);
+}
+
+/* ===== CATEGORIES ===== */
+.shop-home-categories h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.shop-home-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+.shop-home-cat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: #fff;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s;
+}
+
+.shop-home-cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(6, 182, 212, 0.2);
+  border-color: #22d3ee;
+}
+
+.cat-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+/* ===== EMPTY ===== */
+.shop-home-empty {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.shop-home-empty p {
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .shop-home {
+    padding: 32px 16px 48px;
+  }
+
+  .shop-home-cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-home-cat-card {
+    padding: 20px 12px;
+    font-size: 0.9rem;
+  }
+}
