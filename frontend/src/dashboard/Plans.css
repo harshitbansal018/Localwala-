@@ -1,0 +1,115 @@
+.plans-container {
+  padding: 24px;
+  max-width: 800px;
+}
+
+.plans-container h2 {
+  margin-bottom: 8px;
+  color: #1e1e2f;
+}
+
+.plans-intro {
+  color: #555;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.no-shops {
+  color: #888;
+  font-style: italic;
+}
+
+.plans-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.plan-card {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.plan-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #1e1e2f;
+}
+
+.current-plan {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.plan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.upgrade-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.upgrade-btn.pro {
+  background: linear-gradient(135deg, #00c896, #00a87a);
+  color: white;
+}
+
+.upgrade-btn.premium {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+}
+
+.upgrade-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== MOBILE ========== */
+@media (max-width: 768px) {
+  .plans-container {
+    padding: 16px;
+  }
+
+  .plans-container h2 {
+    font-size: 20px;
+  }
+
+  .plan-card {
+    padding: 16px;
+  }
+
+  .plan-card h3 {
+    font-size: 16px;
+  }
+
+  .plan-actions {
+    flex-direction: column;
+  }
+
+  .upgrade-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .plans-container {
+    padding: 12px;
+  }
+
+  .upgrade-btn {
+    font-size: 13px;
+    padding: 12px;
+  }
+}

@@ -1,0 +1,51 @@
+.contact-page {
+  height: 100vh;
+  background: url("/images/contact-bg.jpg") no-repeat center center/cover;
+}
+
+.contact-overlay {
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-box {
+  width: 350px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.contact-box h2 {
+  margin-bottom: 20px;
+}
+
+.contact-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-box input,
+.contact-box textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.contact-box button {
+  padding: 10px;
+  background-color: #00c896;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.contact-box button:hover {
+  background-color: #009e74;
+}

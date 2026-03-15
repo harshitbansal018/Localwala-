@@ -1,0 +1,134 @@
+/* Full Page Background */
+.auth-container {
+  height: 100vh;
+  background: url("/images/auth-bg.jpg") no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Dark overlay for readability */
+.auth-container::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.4)
+  );
+  backdrop-filter: blur(5px);
+}
+
+/* Glass Card */
+.role-selection,
+.auth-box {
+  position: relative;
+  z-index: 2;
+  width: 380px;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Title */
+.role-selection h2,
+.auth-box h2 {
+  color: #ffffff;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Role Buttons */
+.role-selection button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00c896, #00a87a);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.role-selection button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 200, 150, 0.4);
+}
+
+/* Form Inputs */
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.auth-box input {
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  transition: 0.3s;
+}
+
+.auth-box input:focus {
+  box-shadow: 0 0 0 2px #00c896;
+}
+
+/* Submit Button */
+.auth-box button {
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00c896, #009e74);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.auth-box button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 200, 150, 0.4);
+}
+
+/* Toggle Text */
+.toggle-text,
+.back-text {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.toggle-text:hover,
+.back-text:hover {
+  color: #00c896;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
