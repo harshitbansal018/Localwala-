@@ -14,7 +14,6 @@ const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [phone, setPhone] = useState("");
 
-<<<<<<< HEAD
 
 // VALIDATION FUNCTION
 const validateForm = () => {
@@ -58,11 +57,6 @@ e.preventDefault();
 
 // Run validation
 if (!validateForm()) return;
-=======
-const handleSubmit = async (e) => {
-e.preventDefault();
-
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
 
 try {
 
@@ -115,7 +109,6 @@ try {
     navigate("/dashboard");
 
   } else {
-<<<<<<< HEAD
 
     alert("Signup successful! Please login.");
     setIsLogin(true);
@@ -135,21 +128,6 @@ try {
 return (
 
 <div className="auth-container">
-=======
-    alert("Signup successful! Please login.");
-    setIsLogin(true);
-  }
-
-} catch (error) {
-  console.error("Error:", error);
-}
-
-
-};
-
-return ( <div className="auth-container">
-
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
 
   <div className="auth-box">
 
@@ -164,10 +142,6 @@ return ( <div className="auth-container">
             placeholder="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-<<<<<<< HEAD
-=======
-            required
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
           />
 
           <input
@@ -175,10 +149,6 @@ return ( <div className="auth-container">
             placeholder="Shop Name"
             value={shopName}
             onChange={(e) => setShopName(e.target.value)}
-<<<<<<< HEAD
-=======
-            required
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
           />
 
           <input
@@ -186,12 +156,6 @@ return ( <div className="auth-container">
             placeholder="Phone Number"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-<<<<<<< HEAD
-=======
-            pattern="[0-9]{10}"
-            title="Enter 10 digit phone number"
-            required
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
           />
         </>
       )}
@@ -201,10 +165,6 @@ return ( <div className="auth-container">
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-<<<<<<< HEAD
-=======
-        required
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
       />
 
       <input
@@ -212,10 +172,6 @@ return ( <div className="auth-container">
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-<<<<<<< HEAD
-=======
-        required
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
       />
 
       <button type="submit">
@@ -237,16 +193,8 @@ return ( <div className="auth-container">
 
 </div>
 
-<<<<<<< HEAD
 );
 
 }
 
 export default Auth;
-=======
-
-);
-}
-
-export default Auth;
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0

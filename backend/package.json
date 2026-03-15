@@ -17,11 +17,7 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-<<<<<<< HEAD
     "mongoose": "^9.3.0",
-=======
-    "mongoose": "^9.2.1",
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
     "multer": "^2.0.2",
     "nodemailer": "^8.0.1",
     "nodemon": "^3.1.11",

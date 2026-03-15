@@ -10,11 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "axios": "^1.13.6",
-=======
-    "axios": "^1.13.5",
->>>>>>> 427a94c66a5b8d53eaef84850350b598f71814e0
     "nodemon": "^3.1.11",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
