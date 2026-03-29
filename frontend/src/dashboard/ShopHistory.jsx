@@ -72,7 +72,7 @@ function ShopHistory() {
             <p>
               <strong>Public Link:</strong>{" "}
               <a
-                href={`https://localwala.vercel.app//shop/${shop.slug}`}
+                href={`https://localwala.vercel.app/shop/${shop.slug}`}
                 target="_blank"
                 rel="noreferrer"
               >
