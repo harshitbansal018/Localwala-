@@ -4,14 +4,8 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 const router = express.Router();
-
-/* =========================
-SIGNUP
-========================= */
 router.post("/signup", async (req, res) => {
 try {
-
-
 const { name, shopName, email, password, phone, role, plan } = req.body;
 
 // check email
@@ -76,12 +70,13 @@ if (!isMatch) {
 const token = jwt.sign(
   { id: user._id, role: user.role },
   process.env.JWT_SECRET,
-  { expiresIn: "7d" }
+  { expiresIn: "2d" }
 );
 
 res.json({
   message: "Login successful",
   token,
+  expiresIn: "2d",
   role: user.role,
   name: user.name,
   email: user.email,

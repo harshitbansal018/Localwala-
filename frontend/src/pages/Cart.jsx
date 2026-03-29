@@ -201,7 +201,7 @@ const navigate = useNavigate();
               <div key={item.product._id} className="cart-item">
 
                 <img
-                  src={`http://localhost:5000${item.product.image}`}
+                  src={item.product.image}
                   alt={item.product.name}
                   className="cart-product-image"
                 />

@@ -69,7 +69,7 @@ if (!isMatch) {
 const token = jwt.sign(
   { id: customer._id, role: "customer" },
   process.env.JWT_SECRET,
-  { expiresIn: "7d" }
+  { expiresIn: "1d" }
 );
 
 res.json({

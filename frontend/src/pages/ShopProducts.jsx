@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./ShopProducts.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function ShopProducts() {
   const { slug } = useParams();
 
@@ -9,40 +11,54 @@ function ShopProducts() {
   const [catalogs, setCatalogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  /* ===========================
+     FETCH DATA
+  =========================== */
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 1️⃣ Fetch shop
+        setLoading(true);
+
+        // 🔥 Fetch shop
         const shopRes = await fetch(
-          `http://localhost:5000/api/shops/slug/${slug}`
+          `${API_URL}/api/shops/slug/${slug}`
         );
-        const shopData = await shopRes.json();
 
-        if (shopRes.ok) {
-          setShop(shopData);
-
-          // 2️⃣ Fetch catalogs
-          const catalogRes = await fetch(
-            `http://localhost:5000/api/catalogs/shop/${shopData._id}`
-          );
-
-          const catalogData = await catalogRes.json();
-
-          if (Array.isArray(catalogData)) {
-            setCatalogs(catalogData);
-          }
+        if (!shopRes.ok) {
+          throw new Error("Shop not found");
         }
 
-      } catch (error) {
-        console.error(error);
-      }
+        const shopData = await shopRes.json();
+        setShop(shopData);
 
-      setLoading(false);
+        // 🔥 Fetch catalogs
+        const catalogRes = await fetch(
+          `${API_URL}/api/catalogs/shop/${shopData._id}`
+        );
+
+        if (!catalogRes.ok) {
+          throw new Error("Failed to fetch catalogs");
+        }
+
+        const catalogData = await catalogRes.json();
+
+        setCatalogs(Array.isArray(catalogData) ? catalogData : []);
+
+      } catch (error) {
+        console.error("Error:", error.message);
+        setShop(null);
+        setCatalogs([]);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
   }, [slug]);
 
+  /* ===========================
+     LOADING UI
+  =========================== */
   if (loading) {
     return (
       <div className="shop-products">
@@ -58,6 +74,9 @@ function ShopProducts() {
     );
   }
 
+  /* ===========================
+     ERROR UI
+  =========================== */
   if (!shop) {
     return (
       <div className="shop-products">
@@ -69,10 +88,15 @@ function ShopProducts() {
     );
   }
 
+  /* ===========================
+     MAIN UI
+  =========================== */
   return (
     <div className="shop-products">
       <h2 className="catalog-title">Select Category</h2>
-      <p className="catalog-subtitle">Choose a category to browse products</p>
+      <p className="catalog-subtitle">
+        Choose a category to browse products
+      </p>
 
       {catalogs.length === 0 ? (
         <div className="no-catalog-box">
@@ -88,14 +112,15 @@ function ShopProducts() {
               className="catalog-card"
             >
               <span className="catalog-icon">📦</span>
-              <span className="catalog-name">{catalog.name}</span>
+              <span className="catalog-name">
+                {catalog.name}
+              </span>
             </Link>
           ))}
         </div>
       )}
     </div>
   );
-
 }
 
 export default ShopProducts;

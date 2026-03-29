@@ -1,10 +1,11 @@
+import "./config/env.js";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
 dotenv.config();
 
 import connectDB from "./config/db.js";
+import cloudinary from "./config/cloudinary.js";
 
 import authRoutes from "./routes/authRoutes.js";
 import shopRoutes from "./routes/shopRoutes.js";

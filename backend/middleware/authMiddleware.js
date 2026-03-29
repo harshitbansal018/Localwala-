@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 const protect = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) {
-    return res.status(401).json({ message: "Not authorized" });
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "No token provided" });
   }
 
   try {
@@ -14,6 +14,7 @@ const protect = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
+    console.log("JWT ERROR:", error.message); // 🔍 debug
     res.status(401).json({ message: "Token failed" });
   }
 };

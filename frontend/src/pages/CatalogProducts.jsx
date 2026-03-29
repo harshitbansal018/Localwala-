@@ -43,6 +43,21 @@ function CatalogProducts() {
         },
         body: JSON.stringify({ productId: product._id }),
       });
+      const res = await fetch(`http://localhost:5000/api/cart/${product.shop}`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+});
+
+// 🔥 ADD THIS
+if (res.status === 401) {
+  localStorage.removeItem("customerToken");
+  alert("Session expired. Please login again.");
+  window.location.href = "/login";
+  return;
+}
 
       const cartRes = await fetch(
         `http://localhost:5000/api/cart/${product.shop}`,
@@ -95,7 +110,7 @@ function CatalogProducts() {
               <div className="catalog-product-image-wrap">
                 {product.image ? (
                   <img
-                    src={`http://localhost:5000${product.image}`}
+                    src={product.image}
                     alt={product.name}
                   />
                 ) : (

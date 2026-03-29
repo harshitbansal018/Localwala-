@@ -24,6 +24,9 @@ const productSchema = new mongoose.Schema(
     type: String, 
       required: true  // 🔥 store image path
   },
+   public_id: {
+      type: String, // 🔥 REQUIRED for Cloudinary delete
+    },
     stock: {
       type: Number,
       default: 1,

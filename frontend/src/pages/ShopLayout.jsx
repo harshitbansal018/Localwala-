@@ -1,5 +1,6 @@
 import { useParams, Link, Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 import "./ShopLayout.css";
 
 function ShopLayout() {
@@ -10,7 +11,6 @@ function ShopLayout() {
   const [cart, setCart] = useState([]);
   const [current, setCurrent] = useState(0);
   const [navOpen, setNavOpen] = useState(false);
-
   const [shopInfo, setShopInfo] = useState(null);
 
   const images = [
@@ -18,13 +18,70 @@ function ShopLayout() {
     "/images/shop_layout2.jpg",
   ];
 
-  // CUSTOMER
+  /* =========================
+     🔥 CUSTOMER + TOKEN CHECK
+  ========================= */
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("customer"));
-    setCustomer(stored);
+    let logoutTimer;
+
+    const checkCustomerAuth = () => {
+      const storedCustomer = localStorage.getItem("customer");
+      const token = localStorage.getItem("customerToken");
+
+      if (!storedCustomer || !token) {
+        setCustomer(null);
+        return;
+      }
+
+      try {
+        const decoded = jwtDecode(token);
+        const expiryTime = decoded.exp * 1000;
+        const currentTime = Date.now();
+
+        const timeLeft = expiryTime - currentTime;
+
+        console.log("🛒 Customer time left:", timeLeft);
+
+        // 🔥 If expired
+        if (timeLeft <= 0) {
+          localStorage.removeItem("customer");
+          localStorage.removeItem("customerToken");
+          setCustomer(null);
+          return;
+        }
+
+        // ✅ Token valid
+        setCustomer(JSON.parse(storedCustomer));
+
+        // 🔥 Auto logout timer
+        logoutTimer = setTimeout(() => {
+          localStorage.removeItem("customer");
+          localStorage.removeItem("customerToken");
+          setCustomer(null);
+        }, Math.min(timeLeft, 2147483647));
+
+      } catch (error) {
+        console.error("Invalid token:", error);
+        localStorage.removeItem("customer");
+        localStorage.removeItem("customerToken");
+        setCustomer(null);
+      }
+    };
+
+    checkCustomerAuth();
+
+    // 🔥 Backup interval
+    const interval = setInterval(checkCustomerAuth, 5000);
+
+    return () => {
+      if (logoutTimer) clearTimeout(logoutTimer);
+      clearInterval(interval);
+    };
   }, []);
 
-  // CART
+  /* =========================
+     🛒 CART
+  ========================= */
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem(`cart_${slug}`)) || [];
     setCart(stored);
@@ -34,15 +91,21 @@ function ShopLayout() {
     localStorage.setItem(`cart_${slug}`, JSON.stringify(cart));
   }, [cart, slug]);
 
-  // HERO SLIDER
+  /* =========================
+     🎞 HERO SLIDER
+  ========================= */
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+      setCurrent((prev) =>
+        prev === images.length - 1 ? 0 : prev + 1
+      );
     }, 4000);
     return () => clearInterval(interval);
   }, []);
 
-  // FETCH SHOP DETAILS (PHONE + EMAIL)
+  /* =========================
+     📦 FETCH SHOP INFO
+  ========================= */
   useEffect(() => {
     const fetchShop = async () => {
       try {
@@ -59,6 +122,9 @@ function ShopLayout() {
     fetchShop();
   }, [slug]);
 
+  /* =========================
+     🔓 LOGOUT
+  ========================= */
   const handleLogout = () => {
     localStorage.removeItem("customer");
     localStorage.removeItem("customerToken");
@@ -148,28 +214,27 @@ function ShopLayout() {
         </div>
       </div>
 
-      {/* MAIN CONTENT */}
+      {/* MAIN */}
       <main className="shop-main">
         <Outlet context={{ cart, setCart, setCustomer }} />
       </main>
 
-      {/* FOOTER CONTACT */}
+      {/* FOOTER */}
       <footer className="shop-footer">
-
         <h3>Contact Us</h3>
 
         {shopInfo ? (
           <>
-         <p>📞 Phone: {shopInfo.owner?.phone}</p>
-<p>✉️ Email: {shopInfo.owner?.email}</p>
+            <p>📞 Phone: {shopInfo.owner?.phone}</p>
+            <p>✉️ Email: {shopInfo.owner?.email}</p>
           </>
         ) : (
           <p>Loading contact info...</p>
         )}
+
         <p className="footer-copy">
           © {new Date().getFullYear()} {formattedName}
         </p>
-
       </footer>
 
     </div>

@@ -191,11 +191,9 @@ function ManageShop() {
     setPrice(product.price);
     setStock(product.stock);
     setEditingId(product._id);
-    setPreview(
-      product.image
-        ? `http://localhost:5000${product.image}`
-        : null
-    );
+
+    // ✅ FIXED (Cloudinary)
+    setPreview(product.image || null);
   };
 
   return (
@@ -332,9 +330,10 @@ function ManageShop() {
                 key={product._id}
                 className="product-card"
               >
+                {/* ✅ FIXED (Cloudinary) */}
                 {product.image && (
                   <img
-                    src={`http://localhost:5000${product.image}`}
+                    src={product.image}
                     alt={product.name}
                     className="product-image"
                   />

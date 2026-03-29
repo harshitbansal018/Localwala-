@@ -4,9 +4,9 @@ import Shop from "../models/Shop.js";
 import Catalog from "../models/Catalog.js";
 import protect from "../middleware/authMiddleware.js";
 import upload from "../middleware/upload.js";
+import cloudinary from "../config/cloudinary.js";
 
 const router = express.Router();
-
 
 /* =================================================
    🔥 CREATE PRODUCT (With Image + Plan Limit)
@@ -23,7 +23,6 @@ router.post(
         return res.status(400).json({ message: "Catalog is required" });
       }
 
-      // 🔥 Get shop from catalog (correct shop when user has multiple shops)
       const catalogDoc = await Catalog.findById(catalog);
       if (!catalogDoc) {
         return res.status(404).json({ message: "Catalog not found" });
@@ -40,7 +39,6 @@ router.post(
         return res.status(403).json({ message: "Not authorized for this shop" });
       }
 
-      // 🔥 Check plan product limit for THIS shop
       const productCount = await Product.countDocuments({
         shop: shop._id,
       });
@@ -51,13 +49,27 @@ router.post(
         });
       }
 
+      // // 🔥 DEBUG (optional)
+      // console.log("FILE DATA:", req.file);
+
+      // 🔥 GUARANTEED public_id extraction
+      const publicId =
+        req.file.public_id ||
+        req.file.filename ||
+        req.file.path
+          .split("/")
+          .slice(-2)
+          .join("/")
+          .split(".")[0];
+
       const product = await Product.create({
         name,
         price,
         stock,
         shop: shop._id,
         catalog,
-        image: req.file ? `/uploads/${req.file.filename}` : "",
+        image: req.file.path,
+        public_id: req.file.filename, // ✅ ALWAYS SAVED
       });
 
       res.status(201).json(product);
@@ -96,14 +108,43 @@ router.put(
   upload.single("image"),
   async (req, res) => {
     try {
+      const product = await Product.findById(req.params.productId);
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
       const updateData = {
         name: req.body.name,
         price: req.body.price,
         stock: req.body.stock,
       };
 
+      // 🔥 If new image uploaded
       if (req.file) {
-        updateData.image = `/uploads/${req.file.filename}`;
+        // 🧹 Delete old image safely
+        if (product.public_id) {
+          await cloudinary.uploader.destroy(product.public_id);
+        } else if (product.image) {
+          const parts = product.image.split("/");
+          const fileName = parts[parts.length - 1];
+          const publicId = fileName.split(".")[0];
+
+          await cloudinary.uploader.destroy(`products/${publicId}`);
+        }
+
+        // 🔥 Extract new public_id
+        const newPublicId =
+          req.file.public_id ||
+          req.file.filename ||
+          req.file.path
+            .split("/")
+            .slice(-2)
+            .join("/")
+            .split(".")[0];
+
+        updateData.image = req.file.path;
+        updateData.public_id = newPublicId;
       }
 
       const updated = await Product.findByIdAndUpdate(
@@ -115,6 +156,7 @@ router.put(
       res.json(updated);
 
     } catch (error) {
+      console.error(error);
       res.status(500).json({ message: error.message });
     }
   }
@@ -126,14 +168,41 @@ router.put(
 ================================================= */
 router.delete("/:productId", protect, async (req, res) => {
   try {
+    const product = await Product.findById(req.params.productId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    console.log("Public ID:", product.public_id);
+
+    // 🧹 Delete image safely
+    if (product.public_id) {
+      try {
+        await cloudinary.uploader.destroy(product.public_id);
+      } catch (err) {
+        console.log("Cloudinary delete failed:", err.message);
+      }
+    } else if (product.image) {
+      try {
+        const parts = product.image.split("/");
+        const fileName = parts[parts.length - 1];
+        const publicId = fileName.split(".")[0];
+
+        await cloudinary.uploader.destroy(`products/${publicId}`);
+      } catch (err) {
+        console.log("Fallback delete failed");
+      }
+    }
+
     await Product.findByIdAndDelete(req.params.productId);
 
     res.json({ message: "Product deleted" });
 
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 });
-
 
 export default router;
