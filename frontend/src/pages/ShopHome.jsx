@@ -14,7 +14,7 @@ function ShopHome() {
           `https://localwala-1.onrender.com/api/shops/slug/${slug}`
         );
         const shopData = await shopRes.json();
-        if (shopRes.ok && shopData._id) {
+        if (shopData && shopData._id)  {
           const catRes = await fetch(
             `https://localwala-1.onrender.com/api/catalogs/shop/${shopData._id}`
           );
