@@ -72,7 +72,7 @@ function ShopHistory() {
             <p>
               <strong>Public Link:</strong>{" "}
               <a
-                href={`https://localwala-1.onrender.com/shop/${shop.slug}`}
+                href={`https://vercel.com/harshit-bansals-projects-58612749/localwala/EhJjgm4Yamv8ZZnCiAxUrhcjPEnc/shop/${shop.slug}`}
                 target="_blank"
                 rel="noreferrer"
               >
