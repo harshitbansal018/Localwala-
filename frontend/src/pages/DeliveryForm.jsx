@@ -26,7 +26,7 @@ function DeliveryForm() {
       try {
 
         const res = await fetch(
-          `http://localhost:5000/api/shops/slug/${slug}`
+          `https://localwala-1.onrender.com/api/shops/slug/${slug}`
         );
 
         const data = await res.json();
@@ -123,7 +123,7 @@ function DeliveryForm() {
     );
 
     const res = await fetch(
-      "http://localhost:5000/api/orders",
+      "https://localwala-1.onrender.com/api/orders",
       {
         method: "POST",
         headers: {

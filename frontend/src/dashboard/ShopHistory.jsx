@@ -12,7 +12,7 @@ function ShopHistory() {
   const fetchShops = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/shops/my",
+        "https://localwala-1.onrender.com/api/shops/my",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ function ShopHistory() {
 
     try {
       await fetch(
-        `http://localhost:5000/api/shops/${shopId}`,
+        `https://localwala-1.onrender.com/api/shops/${shopId}`,
         {
           method: "DELETE",
           headers: {
@@ -72,7 +72,7 @@ function ShopHistory() {
             <p>
               <strong>Public Link:</strong>{" "}
               <a
-                href={`http://localhost:5173/shop/${shop.slug}`}
+                href={`https://localwala-1.onrender.com/shop/${shop.slug}`}
                 target="_blank"
                 rel="noreferrer"
               >

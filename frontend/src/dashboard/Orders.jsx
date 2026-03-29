@@ -14,7 +14,7 @@ function Orders() {
       try {
 
         const res = await fetch(
-          "http://localhost:5000/api/orders/shopkeeper",
+          "https://localwala-1.onrender.com/api/orders/shopkeeper",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ function Orders() {
     try {
 
       const res = await fetch(
-        `http://localhost:5000/api/orders/${orderId}`,
+        `https://localwala-1.onrender.com/api/orders/${orderId}`,
         {
           method: "PUT",
           headers: {
