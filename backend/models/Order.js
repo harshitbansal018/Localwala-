@@ -21,16 +21,17 @@ const orderSchema = new mongoose.Schema(
       default: "pickup",
     },
 
-    // Delivery Address (only for delivery orders)
+    // Delivery Address (only for delivery)
     deliveryAddress: {
-      name: String,
-      phone: String,
-      address: String,
-      city: String,
-      state: String,
-      pincode: String,
+      name: { type: String },
+      phone: { type: String },
+      address: { type: String },
+      city: { type: String },
+      state: { type: String },
+      pincode: { type: String },
     },
 
+    // Items
     items: [
       {
         productId: {
@@ -38,9 +39,15 @@ const orderSchema = new mongoose.Schema(
           ref: "Product",
         },
 
-        name: String,
+        name: {
+          type: String,
+          required: true,
+        },
 
-        price: Number,
+        price: {
+          type: Number,
+          required: true,
+        },
 
         quantity: {
           type: Number,
@@ -54,9 +61,10 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
+    // ✅ FIXED STATUS ENUM (matches frontend)
     status: {
       type: String,
-      enum: ["Pending", "Accepted", "Preparing", "Ready", "Out for Delivery", "Delivered"],
+      enum: ["Pending", "Processing", "Shipped", "Delivered"],
       default: "Pending",
     },
 
@@ -64,9 +72,11 @@ const orderSchema = new mongoose.Schema(
       type: Date,
     },
   },
-
   { timestamps: true }
 );
+
+// Optional: auto set deliveredAt
+
 
 const Order = mongoose.model("Order", orderSchema);
 

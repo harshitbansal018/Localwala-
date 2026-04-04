@@ -14,7 +14,7 @@ function Orders() {
       try {
 
         const res = await fetch(
-          "https://localwala-1.onrender.com/api/orders/shopkeeper",
+          "http://localhost:5000/api/orders/shopkeeper",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -42,37 +42,39 @@ function Orders() {
 
 
   const updateStatus = async (orderId, newStatus) => {
-
-    try {
-
-      const res = await fetch(
-        `https://localwala-1.onrender.com/api/orders/${orderId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ status: newStatus }),
-        }
-      );
-
-      if (res.ok) {
-
-        setOrders((prev) =>
-          prev.map((order) =>
-            order._id === orderId
-              ? { ...order, status: newStatus }
-              : order
-          )
-        );
-
+  try {
+    const res = await fetch(
+      `http://localhost:5000/api/orders/${orderId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: newStatus }),
       }
+    );
 
-    } catch (error) {
-      console.error(error);
+    const data = await res.json(); // 👈 ADD THIS
+
+    if (!res.ok) {
+      console.error("Backend Error:", data.message); // 👈 SHOW ERROR
+      alert(data.message); // 👈 OPTIONAL
+      return;
     }
-  };
+
+    setOrders((prev) =>
+      prev.map((order) =>
+        order._id === orderId
+          ? { ...order, status: newStatus }
+          : order
+      )
+    );
+
+  } catch (error) {
+    console.error("Frontend Error:", error);
+  }
+};
 
 
   if (loading) return <p>Loading orders...</p>;
@@ -149,9 +151,6 @@ function Orders() {
               ))}
 
             </div>
-
-
-
             <div className="order-actions">
 
               <button

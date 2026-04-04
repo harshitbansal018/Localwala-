@@ -23,6 +23,8 @@ import CatalogProducts from "./pages/CatalogProducts";
 import CustomerAuth from "./pages/CustomerAuth";
 import OrderTracking from "./pages/OrderTracking";
 import DeliveryForm from "./pages/DeliveryForm";
+import Footer from "./components/Footer";
+import About_us from "./components/About_us";
 
 function AppWrapper() {
   const location = useLocation();
@@ -30,6 +32,7 @@ function AppWrapper() {
   const isRedirecting = useRef(false);
 
   const path = location.pathname;
+
 
   // 🔥 ROLE DETECTION
   const isShopRoute = path.startsWith("/shop");
@@ -102,6 +105,7 @@ function AppWrapper() {
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/about" element={<About_us />} />
 
         {/* ===== DASHBOARD (SHOPKEEPER) ===== */}
         <Route path="/dashboard/*" element={<Dashboard />} />
@@ -116,7 +120,9 @@ function AppWrapper() {
           <Route path="track" element={<OrderTracking />} />
           <Route path="delivery" element={<DeliveryForm />} />
         </Route>
+  
       </Routes>
+       {!isShopRoute && <Footer />}
     </>
   );
 }

@@ -21,7 +21,7 @@ function CreateShop() {
 
     try {
       const response = await fetch(
-        "https://localwala-1.onrender.com/api/shops",
+        "http://localhost:5000/api/shops",
         {
           method: "POST",
           headers: {

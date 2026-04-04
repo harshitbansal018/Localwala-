@@ -67,7 +67,7 @@ return ( <div className="services-page">
       <div className="plan-card">
 
         <h3>Basic</h3>
-        <h4>₹99 / month</h4>
+        <h4>Free</h4>
 
         <ul>
           <li>✔ Create Shop</li>
@@ -87,7 +87,7 @@ return ( <div className="services-page">
       <div className="plan-card popular">
 
         <h3>Pro</h3>
-        <h4>₹499 / month</h4>
+        <h4>₹99 / month</h4>
 
         <ul>
           <li>✔ Create Shop</li>
@@ -107,7 +107,7 @@ return ( <div className="services-page">
       <div className="plan-card">
 
         <h3>Premium</h3>
-        <h4>₹999 / month</h4>
+        <h4>₹199 / month</h4>
 
         <ul>
           <li>✔ Create Shop</li>

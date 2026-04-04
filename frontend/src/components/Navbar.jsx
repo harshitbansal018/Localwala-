@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import "./Navbar.css";
-
+import logo from "/images/shop_logo.png";
 function Navbar() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -84,8 +84,10 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="logo">LOCALWALA</div>
-
+  <div className="logo-container">
+    <img src={logo} alt="Localwala Logo" className="logo-img" />
+    <span className="logo-text">LOCALWALA</span>
+  </div>
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/services">Services</Link></li>

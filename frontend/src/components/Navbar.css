@@ -132,3 +132,37 @@
     justify-content: center;
   }
 }
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #0b1c2c; /* dark blue */
+}
+
+/* Logo container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo image */
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Logo text */
+.logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+/* Optional hover effect */
+.logo-container:hover {
+  transform: scale(1.03);
+  transition: 0.3s ease;
+}

@@ -1,81 +1,85 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import "./CustomerAuth.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CustomerAuth() {
-const outletContext = useOutletContext();
-const setCustomer = outletContext?.setCustomer;
+  const outletContext = useOutletContext();
+  const setCustomer = outletContext?.setCustomer;
 
-const [isLogin, setIsLogin] = useState(true);
-const [name, setName] = useState("");
-const [phone, setPhone] = useState("");
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+const { slug } = useParams(); // 🔥 get shop slug
 
-const handleSubmit = async (e) => {
-e.preventDefault();
-setLoading(true);
+  const [isLogin, setIsLogin] = useState(true);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-try {
-  const url = isLogin
-    ? "https://localwala-1.onrender.com/api/customer-auth/login"
-    : "https://localwala-1.onrender.com/api/customer-auth/signup";
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  const bodyData = isLogin
-    ? { email, password }
-    : { name, phone, email, password };
+    try {
+      const url = isLogin
+        ? "http://localhost:5000/api/customer-auth/login"
+        : "http://localhost:5000/api/customer-auth/signup";
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(bodyData),
-  });
+      const bodyData = isLogin
+        ? { email, password }
+        : { name, phone, email, password };
 
-  const data = await res.json();
-
-  if (!res.ok) {
-    alert(data.message || "Something went wrong");
-    setLoading(false);
-    return;
-  }
-
-  if (isLogin) {
-    localStorage.setItem("customerToken", data.token);
-
-    localStorage.setItem(
-      "customer",
-      JSON.stringify({
-        name: data.name,
-        email: data.email,
-        phone: data.phone
-      })
-    );
-
-    if (setCustomer) {
-      setCustomer({
-        name: data.name,
-        email: data.email,
-        phone: data.phone
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bodyData),
       });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Something went wrong");
+        setLoading(false);
+        return;
+      }
+
+      if (isLogin) {
+        localStorage.setItem("customerToken", data.token);
+
+        localStorage.setItem(
+          "customer",
+          JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: data.phone
+          })
+        );
+
+        if (setCustomer) {
+          setCustomer({
+            name: data.name,
+            email: data.email,
+            phone: data.phone
+          });
+        }navigate(`/shop/${slug}`);
+
+      } else {
+        alert("Signup successful! Please login.");
+        setIsLogin(true);
+      }
+
+    } catch (error) {
+      console.error("Customer Auth Error:", error);
+      alert("Something went wrong");
     }
 
-  } else {
-    alert("Signup successful! Please login.");
-    setIsLogin(true);
-  }
-
-} catch (error) {
-  console.error("Customer Auth Error:", error);
-  alert("Something went wrong");
-}
-
-setLoading(false);
+    setLoading(false);
 
 
-};
+  };
 
-return ( <div className="customer-auth-wrap"> <div className="customer-auth-card">
+  return (<div className="customer-auth-wrap"> <div className="customer-auth-card">
 
 
     <h2>{isLogin ? "Welcome Back" : "Create Account"}</h2>
@@ -127,11 +131,13 @@ return ( <div className="customer-auth-wrap"> <div className="customer-auth-card
       />
 
       <button type="submit" disabled={loading}>
-        {loading
-          ? "Please wait..."
-          : isLogin
-          ? "Login"
-          : "Sign Up"}
+        {loading ? (
+          <span className="btn-loader"></span>
+        ) : isLogin ? (
+          "Login"
+        ) : (
+          "Sign Up"
+        )}
       </button>
 
     </form>
@@ -146,10 +152,10 @@ return ( <div className="customer-auth-wrap"> <div className="customer-auth-card
     </p>
 
   </div>
-</div>
+  </div>
 
 
-);
+  );
 }
 
 export default CustomerAuth;

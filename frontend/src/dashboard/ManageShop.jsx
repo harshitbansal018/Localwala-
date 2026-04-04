@@ -26,7 +26,7 @@ function ManageShop() {
   =========================== */
   const fetchCatalogs = async () => {
     const res = await fetch(
-      `https://localwala-1.onrender.com/api/catalogs/shop/${shopId}`
+      `http://localhost:5000/api/catalogs/shop/${shopId}`
     );
     const data = await res.json();
     if (Array.isArray(data)) {
@@ -41,7 +41,7 @@ function ManageShop() {
     if (!catalogId) return;
 
     const res = await fetch(
-      `https://localwala-1.onrender.com/api/products/catalog/${catalogId}`
+      `http://localhost:5000/api/products/catalog/${catalogId}`
     );
 
     const data = await res.json();
@@ -64,7 +64,7 @@ function ManageShop() {
     if (!newCatalogName) return;
 
     await fetch(
-      `https://localwala-1.onrender.com/api/catalogs/${shopId}`,
+      `http://localhost:5000/api/catalogs/${shopId}`,
       {
         method: "POST",
         headers: {
@@ -89,7 +89,7 @@ function ManageShop() {
     if (!confirmDelete) return;
 
     await fetch(
-      `https://localwala-1.onrender.com/api/catalogs/${catalogId}`,
+      `http://localhost:5000/api/catalogs/${catalogId}`,
       {
         method: "DELETE",
         headers: {
@@ -127,7 +127,7 @@ function ManageShop() {
     let res;
     if (editingId) {
       res = await fetch(
-        `https://localwala-1.onrender.com/api/products/${editingId}`,
+        `http://localhost:5000/api/products/${editingId}`,
         {
           method: "PUT",
           headers: {
@@ -138,7 +138,7 @@ function ManageShop() {
       );
     } else {
       res = await fetch(
-        `https://localwala-1.onrender.com/api/products/`,
+        `http://localhost:5000/api/products/`,
         {
           method: "POST",
           headers: {
@@ -171,7 +171,7 @@ function ManageShop() {
   =========================== */
   const handleDeleteProduct = async (productId) => {
     await fetch(
-      `https://localwala-1.onrender.com/api/products/${productId}`,
+      `http://localhost:5000/api/products/${productId}`,
       {
         method: "DELETE",
         headers: {

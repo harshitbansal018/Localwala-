@@ -5,45 +5,50 @@ import User from "../models/User.js";
 
 const router = express.Router();
 router.post("/signup", async (req, res) => {
-try {
-const { name, shopName, email, password, phone, role, plan } = req.body;
+  try {
+    const { name, shopName, email, password, phone, role, plan, upiId } = req.body;
 
-// check email
-const userExists = await User.findOne({ email });
-if (userExists) {
-  return res.status(400).json({ message: "Email already registered" });
-}
+    // check email
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
 
-// check phone
-const phoneExists = await User.findOne({ phone });
-if (phoneExists) {
-  return res.status(400).json({ message: "Phone number already registered" });
-}
+    // check phone
+    const phoneExists = await User.findOne({ phone });
+    if (phoneExists) {
+      return res.status(400).json({ message: "Phone number already registered" });
+    }
 
-const hashedPassword = await bcrypt.hash(password, 10);
+    // 🔥 UPI validation
+    if (role === "shopkeeper" && (!upiId || !upiId.includes("@"))) {
+      return res.status(400).json({ message: "Valid UPI ID is required" });
+    }
 
-const user = await User.create({
-  name,
-  shopName,
-  email,
-  password: hashedPassword,
-  phone,
-  role,
-  subscription: {
-    plan: plan || "Basic",
-    isActive: true,
-  },
-});
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-res.status(201).json({
-  message: "Signup successful",
-  user
-});
+    const user = await User.create({
+      name,
+      shopName,
+      email,
+      password: hashedPassword,
+      phone,
+      role,
+      upiId, // ✅ NOW WORKS
+      subscription: {
+        plan: plan || "Basic",
+        isActive: true,
+      },
+    });
 
+    res.status(201).json({
+      message: "Signup successful",
+      user,
+    });
 
-} catch (error) {
-res.status(500).json({ message: error.message });
-}
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 /* =========================

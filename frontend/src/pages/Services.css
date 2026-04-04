@@ -36,14 +36,15 @@
 
 /* Plans Section */
 .plans-container {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .plan-card {
-  width: 280px;
+  width: 100%;
   padding: 30px;
   border-radius: 12px;
   background-color: #ffffff;
@@ -92,4 +93,9 @@
 .popular {
   border: 2px solid #00c896;
   transform: scale(1.05);
+}
+@media (max-width: 768px) {
+  .plans-container {
+    grid-template-columns: 1fr;
+  }
 }

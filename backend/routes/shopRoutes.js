@@ -62,7 +62,7 @@ router.delete("/:id", protect, async (req, res) => {
 router.get("/slug/:slug", async (req, res) => {
   try {
    const shop = await Shop.findOne({ slug: req.params.slug })
-  .populate("owner", "email phone name");
+  .populate("owner", "email phone name upiId"); // 🔥 POPULATE OWNER INFO
 
     if (!shop) {
       return res.status(404).json({ message: "Shop not found" });

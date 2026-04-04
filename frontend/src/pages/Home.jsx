@@ -8,7 +8,6 @@ function Home() {
   const images = [
     "/images/shop1.jpg",
     "/images/shop2.jpg",
-    "/images/shop3.jpg"
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

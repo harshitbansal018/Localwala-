@@ -102,3 +102,26 @@
     font-size: 1.35rem;
   }
 }
+/* 🔥 BUTTON LOADER */
+.btn-loader {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #fff;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Smooth rotation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Disabled button styling */
+.customer-auth-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
