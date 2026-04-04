@@ -12,7 +12,7 @@ const token =
     const fetchAnalytics = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/orders/shopkeeper/analytics",
+          "https://localwala-1.onrender.com/api/orders/shopkeeper/analytics",
           {
             headers: {
               Authorization: `Bearer ${token}`,
