@@ -11,12 +11,12 @@ function ShopHome() {
     const fetchCatalogs = async () => {
       try {
         const shopRes = await fetch(
-          `https://localwala-1.onrender.com/api/shops/slug/${slug}`
+          `  https://localwala-1.onrender.com/api/shops/slug/${slug}`
         );
         const shopData = await shopRes.json();
         if (shopData && shopData._id)  {
           const catRes = await fetch(
-            `https://localwala-1.onrender.com/api/catalogs/shop/${shopData._id}`
+            `  https://localwala-1.onrender.com/api/catalogs/shop/${shopData._id}`
           );
           const data = await catRes.json();
           setCatalogs(Array.isArray(data) ? data.slice(0, 6) : []);

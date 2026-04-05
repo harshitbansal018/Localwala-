@@ -10,6 +10,8 @@ function DeliveryForm() {
   const [upiId, setUpiId] = useState("");
   const [shopPhone, setShopPhone] = useState("");
 
+  const [paymentMethod, setPaymentMethod] = useState("whatsapp"); // 🔥 NEW
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -28,17 +30,14 @@ function DeliveryForm() {
     const fetchShop = async () => {
       try {
         const res = await fetch(
-          `https://localwala-1.onrender.com/api/shops/slug/${slug}`
+          `  https://localwala-1.onrender.com/api/shops/slug/${slug}`
         );
 
         const data = await res.json();
 
-        console.log("SHOP DATA:", data);
-
         setShopId(data._id);
         setShopPhone(data.owner?.phone);
-        setUpiId(data.owner?.upiId); // 🔥 IMPORTANT
-
+        setUpiId(data.owner?.upiId);
       } catch (error) {
         console.error("Error fetching shop:", error);
       }
@@ -118,7 +117,7 @@ function DeliveryForm() {
       0
     );
 
-    const res = await fetch("https://localwala-1.onrender.com/api/orders", {
+    const res = await fetch("  https://localwala-1.onrender.com/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -130,7 +129,7 @@ function DeliveryForm() {
         total,
         orderType: "delivery",
         deliveryAddress: formData,
-        paymentMethod: "upi",
+        paymentMethod, // 🔥 dynamic
         paymentStatus: "Pending"
       }),
     });
@@ -150,7 +149,7 @@ function DeliveryForm() {
     const cartItems =
       JSON.parse(localStorage.getItem("cartItems")) || [];
 
-    let message = `🛒 *New Order*\n\n`;
+    let message = `🛒 *New Order Request*\n\n`;
 
     cartItems.forEach((item, index) => {
       if (item.product) {
@@ -162,9 +161,15 @@ function DeliveryForm() {
 
     message += `\n💰 *Total:* ₹${total}\n\n`;
 
-    message += `📍 *Delivery Address:*\n`;
+    message += `📍 *Customer Details:*\n`;
     message += `${formData.name}\n${formData.phone}\n`;
-    message += `${formData.address}, ${formData.city}, ${formData.state} - ${formData.pincode}`;
+    message += `${formData.address}, ${formData.city}, ${formData.state} - ${formData.pincode}\n\n`;
+
+    message += `📲 *Payment Method:* ${
+      paymentMethod === "upi" ? "UPI" : "WhatsApp"
+    }\n`;
+
+    message += `👉 Please share QR code for payment confirmation.`;
 
     const encodedMessage = encodeURIComponent(message);
 
@@ -174,7 +179,7 @@ function DeliveryForm() {
   };
 
   // =========================
-  // PLACE ORDER (FINAL FLOW)
+  // PLACE ORDER
   // =========================
   const placeOrder = async () => {
     if (!token) {
@@ -192,21 +197,22 @@ function DeliveryForm() {
     const total = await saveOrder();
     if (!total) return;
 
-    if (!upiId) {
-      alert("Payment not available for this shop");
-      return;
+    // 🔵 UPI FLOW
+    if (paymentMethod === "upi") {
+      if (!upiId) {
+        alert("UPI not available for this shop");
+        return;
+      }
+
+      const upiLink = `upi://pay?pa=${upiId.trim()}&pn=${encodeURIComponent(slug)}&am=${total}&cu=INR`;
+
+      window.location.href = upiLink;
     }
 
-    // 🔥 FIXED UPI LINK
-    const upiLink = `upi://pay?pa=${upiId.trim()}&pn=${encodeURIComponent(slug)}&am=${total}&cu=INR`;
-
-    // 🔥 OPEN PAYMENT APP FIRST
-    window.location.href = upiLink;
-
-    // 🔥 SEND WHATSAPP AFTER DELAY
-    setTimeout(() => {
+    // 🟢 WHATSAPP FLOW
+    if (paymentMethod === "whatsapp") {
       sendToWhatsApp(total);
-    }, 1500);
+    }
 
     localStorage.removeItem("cartItems");
 
@@ -226,8 +232,38 @@ function DeliveryForm() {
           <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} />
           <input type="text" name="pincode" placeholder="Pincode" value={formData.pincode} onChange={handleChange} />
 
+          {/* 🔥 PAYMENT METHOD */}
+          <div className="payment-method">
+            <h3>Choose Payment Method</h3>
+
+            <label>
+              <input
+                type="radio"
+                value="upi"
+                checked={paymentMethod === "upi"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              UPI
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                value="whatsapp"
+                checked={paymentMethod === "whatsapp"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              WhatsApp <span style={{ color: "green" }}>(Mostly Used)</span>
+            </label>
+
+            <p className="payment-note">
+              ⚠️ UPI works only on mobile devices. <br />
+              ⭐ Prefer WhatsApp for smooth ordering.
+            </p>
+          </div>
+
           <button className="place-order-btn" onClick={placeOrder}>
-            Place Order (With Payment)
+            Place Order
           </button>
         </div>
       </div>

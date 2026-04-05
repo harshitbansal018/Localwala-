@@ -45,16 +45,18 @@ function Plans() {
 
   return (
     <div className="plans-container">
-      <h2>Upgrade Plan</h2>
-      <p className="plans-intro">
-        Pay via WhatsApp to upgrade. After payment, your plan will be updated and
-        you can add more products.
-      </p>
+      {/* <h2>Upgrade Plan</h2> */}
+
 
       {shops.length === 0 ? (
         <p className="no-shops">Create a shop first to upgrade.</p>
       ) : (
         <div className="plans-grid">
+          <h2>Upgrade plan</h2>
+          <p >
+            Pay via WhatsApp to upgrade. After payment, your plan will be updated and
+            you can add more products.
+          </p>
           {shops.map((shop) => (
             <div key={shop._id} className="plan-card">
               <h3>{shop.name}</h3>

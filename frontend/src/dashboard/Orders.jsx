@@ -14,7 +14,7 @@ function Orders() {
       try {
 
         const res = await fetch(
-          "https://localwala-1.onrender.com/api/orders/shopkeeper",
+          "  https://localwala-1.onrender.com/api/orders/shopkeeper",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ function Orders() {
   const updateStatus = async (orderId, newStatus) => {
   try {
     const res = await fetch(
-      `https://localwala-1.onrender.com/api/orders/${orderId}`,
+      `  https://localwala-1.onrender.com/api/orders/${orderId}`,
       {
         method: "PUT",
         headers: {

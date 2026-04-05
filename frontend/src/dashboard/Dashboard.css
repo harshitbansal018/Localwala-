@@ -103,8 +103,8 @@
 .dashboard-content {
   flex: 1;
   padding: 40px;
-  background-color: #f4f6f9;
-  min-width: 0;
+
+  display: block;        /* 🔥 REMOVE FLEX */
 }
 
 /* 🔥 HEADER */

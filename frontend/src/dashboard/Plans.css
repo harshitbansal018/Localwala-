@@ -1,111 +1,121 @@
+/* ================= CONTAINER ================= */
 .plans-container {
-  padding: 24px;
-  max-width: 800px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0;                     /* 🔥 FIX: align with sidebar */
+  padding: 30px 20px;
+  box-sizing: border-box;
 }
 
-.plans-container h2 {
-  margin-bottom: 8px;
-  color: #1e1e2f;
-}
-
+/* ================= INTRO ================= */
 .plans-intro {
   color: #555;
-  margin-bottom: 24px;
-  font-size: 14px;
+  margin-bottom: 25px;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-.no-shops {
-  color: #888;
-  font-style: italic;
-}
-
+/* ================= GRID (VERTICAL FIX) ================= */
 .plans-grid {
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;   /* 🔥 FORCE VERTICAL */
   gap: 20px;
 }
 
+/* ================= CARD ================= */
 .plan-card {
-  padding: 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  background: #fafafa;
+  width: 100%;
+  max-width: 420px;   /* 🔥 FIX: prevents wide horizontal look */
+  padding: 24px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
 }
 
+/* Optional center card */
+.plans-grid {
+  align-items: flex-start;  /* or center if you want */
+}
+
+.plan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ================= TEXT ================= */
 .plan-card h3 {
-  margin: 0 0 8px 0;
-  font-size: 18px;
+  margin-bottom: 8px;
+  font-size: 20px;
   color: #1e1e2f;
 }
 
 .current-plan {
-  margin: 0 0 16px 0;
+  margin-bottom: 18px;
   font-size: 14px;
   color: #555;
 }
 
+/* ================= BUTTONS ================= */
 .plan-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;   /* 🔥 vertical buttons */
+  gap: 12px;
 }
 
 .upgrade-btn {
-  padding: 10px 16px;
+  width: 100%;
+  padding: 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.25s ease;
 }
 
+/* PRO BUTTON */
 .upgrade-btn.pro {
   background: linear-gradient(135deg, #00c896, #00a87a);
   color: white;
 }
 
+/* PREMIUM BUTTON */
 .upgrade-btn.premium {
   background: linear-gradient(135deg, #6366f1, #4f46e5);
   color: white;
 }
 
+/* HOVER */
 .upgrade-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
-/* ========== MOBILE ========== */
+/* ================= EMPTY ================= */
+.no-shops {
+  color: #888;
+  font-style: italic;
+}
+
+/* ================= TABLET ================= */
 @media (max-width: 768px) {
   .plans-container {
-    padding: 16px;
-  }
-
-  .plans-container h2 {
-    font-size: 20px;
+    padding: 20px 16px;
   }
 
   .plan-card {
-    padding: 16px;
-  }
-
-  .plan-card h3 {
-    font-size: 16px;
-  }
-
-  .plan-actions {
-    flex-direction: column;
-  }
-
-  .upgrade-btn {
-    width: 100%;
-    text-align: center;
+    max-width: 100%;
+    padding: 18px;
   }
 }
 
+/* ================= MOBILE ================= */
 @media (max-width: 480px) {
   .plans-container {
-    padding: 12px;
+    padding: 16px 12px;
   }
 
   .upgrade-btn {

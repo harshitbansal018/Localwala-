@@ -12,7 +12,7 @@ function ShopHistory() {
   const fetchShops = async () => {
     try {
       const res = await fetch(
-        "https://localwala-1.onrender.com/api/shops/my",
+        "  https://localwala-1.onrender.com/api/shops/my",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ function ShopHistory() {
 
     try {
       await fetch(
-        `https://localwala-1.onrender.com/api/shops/${shopId}`,
+        `  https://localwala-1.onrender.com/api/shops/${shopId}`,
         {
           method: "DELETE",
           headers: {
@@ -72,7 +72,7 @@ function ShopHistory() {
             <p>
               <strong>Public Link:</strong>{" "}
               <a
-                href={` https://localwala.vercel.app/shop/${shop.slug}`}
+                href={`   https://localwala.vercel.app/shop/${shop.slug}`}
                 target="_blank"
                 rel="noreferrer"
               >

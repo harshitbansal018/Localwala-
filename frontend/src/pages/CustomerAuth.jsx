@@ -23,8 +23,8 @@ const { slug } = useParams(); // 🔥 get shop slug
 
     try {
       const url = isLogin
-        ? "https://localwala-1.onrender.com/api/customer-auth/login"
-        : "https://localwala-1.onrender.com/api/customer-auth/signup";
+        ? "  https://localwala-1.onrender.com/api/customer-auth/login"
+        : "  https://localwala-1.onrender.com/api/customer-auth/signup";
 
       const bodyData = isLogin
         ? { email, password }
