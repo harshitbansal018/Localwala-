@@ -56,7 +56,7 @@ const handleGetStarted = () => {
                 {/* Contact */}
                 <div className="footer-col">
                     <h3>Contact</h3>
-                    <p>Email:bansalharshitpc.091@outlook.com</p>
+                    <p>Email: bansalharshitpc.091@outlook.com</p>
                 </div>
 
             </div>

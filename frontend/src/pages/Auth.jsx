@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import "./Auth.css";
 
 function Auth() {
@@ -12,8 +13,8 @@ function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
-const [upiId, setUpiId] = useState("");
-  const [loading, setLoading] = useState(false); // 🔥 LOADING STATE
+  const [upiId, setUpiId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // =========================
   // ✅ VALIDATION
@@ -32,6 +33,11 @@ const [upiId, setUpiId] = useState("");
 
       if (!/^[0-9]{10}$/.test(phone)) {
         alert("Phone number must be exactly 10 digits");
+        return false;
+      }
+
+      if (!upiId || !upiId.includes("@")) {
+        alert("Enter a valid UPI ID");
         return false;
       }
     }
@@ -57,25 +63,25 @@ const [upiId, setUpiId] = useState("");
 
     if (!validateForm()) return;
 
-    setLoading(true); // 🔥 START LOADING
+    setLoading(true);
 
     try {
       const url = isLogin
-        ? "  https://localwala-1.onrender.com/api/auth/login"
-        : "  https://localwala-1.onrender.com/api/auth/signup";
+        ? "https://localwala-1.onrender.com/api/auth/login"
+        : "https://localwala-1.onrender.com/api/auth/signup";
 
       const bodyData = isLogin
         ? { email, password }
         : {
-          name,
-          shopName,
-          email,
-          password,
-          phone,
-          upiId,
-          role: "shopkeeper",
-          plan: "Basic",
-        };
+            name,
+            shopName,
+            email,
+            password,
+            phone,
+            upiId,
+            role: "shopkeeper",
+            plan: "Basic",
+          };
 
       const response = await fetch(url, {
         method: "POST",
@@ -116,85 +122,125 @@ const [upiId, setUpiId] = useState("");
       console.error("Error:", error);
       alert("Something went wrong");
     } finally {
-      setLoading(false); // 🔥 STOP LOADING ALWAYS
+      setLoading(false);
     }
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
-        <h2>{isLogin ? "Shopkeeper Login" : "Shopkeeper Signup"}</h2>
-
-        <form onSubmit={handleSubmit}>
-          {!isLogin && (
-            <>
-              <input
-                type="text"
-                placeholder="Full Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-
-              <input
-                type="text"
-                placeholder="Shop Name"
-                value={shopName}
-                onChange={(e) => setShopName(e.target.value)}
-              />
-
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </>
-          )}
-
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {!isLogin && (
-  <input
-    type="text"
-    placeholder="Enter UPI ID (e.g. 9876543210@paytm)"
-    value={upiId}
-    onChange={(e) => setUpiId(e.target.value)}
-  />
-)}
-
-          {/* 🔥 BUTTON WITH LOADING */}
-          <button type="submit" disabled={loading}>
-            {loading ? (
-              <span className="loader"></span>
-            ) : isLogin ? (
-              "Login"
-            ) : (
-              "Signup"
-            )}
-          </button>
-        </form>
-
-        <p
-          className="toggle-text"
-          onClick={() => setIsLogin(!isLogin)}
-        >
+    <>
+      {/* 🔥 SEO META TAGS */}
+      <Helmet>
+        <title>
           {isLogin
-            ? "Don't have an account? Signup"
-            : "Already have an account? Login"}
-        </p>
+            ? "Login - Localwala Shopkeeper"
+            : "Signup - Create Your Shop | Localwala"}
+        </title>
+
+        <meta
+          name="description"
+          content={
+            isLogin
+              ? "Login to your Localwala dashboard and manage your online shop easily."
+              : "Create your own online shop with Localwala. Signup and start selling locally in minutes."
+          }
+        />
+
+        <meta
+          name="keywords"
+          content="Localwala login, shopkeeper signup, create online shop, ecommerce platform"
+        />
+
+        <meta name="author" content="Localwala" />
+
+        {/* Open Graph */}
+        <meta
+          property="og:title"
+          content={
+            isLogin
+              ? "Login - Localwala"
+              : "Signup - Start Your Shop with Localwala"
+          }
+        />
+        <meta
+          property="og:description"
+          content="Manage or create your online shop easily with Localwala."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
+      <div className="auth-container">
+        <div className="auth-box">
+          <h2>{isLogin ? "Shopkeeper Login" : "Shopkeeper Signup"}</h2>
+
+          <form onSubmit={handleSubmit}>
+            {!isLogin && (
+              <>
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Shop Name"
+                  value={shopName}
+                  onChange={(e) => setShopName(e.target.value)}
+                />
+
+                <input
+                  type="tel"
+                  placeholder="Phone Number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </>
+            )}
+
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            {!isLogin && (
+              <input
+                type="text"
+                placeholder="Enter UPI ID (e.g. 9876543210@paytm)"
+                value={upiId}
+                onChange={(e) => setUpiId(e.target.value)}
+              />
+            )}
+
+            <button type="submit" disabled={loading}>
+              {loading
+                ? "Processing..."
+                : isLogin
+                ? "Login"
+                : "Signup"}
+            </button>
+          </form>
+
+          <p
+            className="toggle-text"
+            onClick={() => setIsLogin(!isLogin)}
+          >
+            {isLogin
+              ? "Don't have an account? Signup"
+              : "Already have an account? Login"}
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

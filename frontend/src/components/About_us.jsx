@@ -1,91 +1,111 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import "./About_us.css";
 
 function About() {
   return (
-    <div className="about-container">
+    <>
+      {/* 🔥 SEO META TAGS */}
+      <Helmet>
+        <title>About Localwala - Empowering Local Businesses</title>
 
-      {/* 🔥 HERO SECTION */}
-      <section className="about-hero">
-        <h1>From Streets to Screens — Bringing Local Shops Online.</h1>
-        <p>
-          Empowering local shopkeepers to create their digital presence effortlessly,
-          with zero technical knowledge.
-        </p>
-      </section>
+        <meta
+          name="description"
+          content="Learn about Localwala, a platform helping local shopkeepers bring their businesses online with ease and grow digitally."
+        />
 
-      {/* 🏪 ABOUT SECTION */}
-      <section className="about-section">
-        <h2>What is LocalWala?</h2>
-        <p>
-          LocalWala is a platform designed to uplift local shopkeepers by helping them
-          bring their businesses online. We understand that many small business owners
-          struggle with technology, and our goal is to simplify the entire process.
-        </p>
-        <p>
-          With LocalWala, anyone can create an online shop, upload products, manage
-          orders, and connect with customers — all without any technical expertise.
-        </p>
-      </section>
+        <meta
+          name="keywords"
+          content="Localwala, about Localwala, local business platform, online shop for local vendors"
+        />
 
-      {/* 🚀 MISSION + VISION */}
-      <section className="about-grid">
-        <div className="about-card">
-          <h3>🚀 Our Mission</h3>
+        <meta name="author" content="Localwala" />
+
+        {/* Open Graph (Social Sharing) */}
+        <meta property="og:title" content="About Localwala" />
+        <meta
+          property="og:description"
+          content="Empowering local shopkeepers to build their online presence easily."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
+      <div className="about-container">
+
+        {/* 🔥 HERO */}
+        <section className="about-hero">
+          <h1>From Streets to Screens — Bringing Local Shops Online.</h1>
           <p>
-            To empower local businesses by making digital tools simple, accessible,
-            and effective for everyone.
+            Empowering local shopkeepers to create their digital presence effortlessly,
+            with zero technical knowledge.
           </p>
-        </div>
+        </section>
 
-        <div className="about-card">
-          <h3>❤️ Our Vision</h3>
+        {/* 🏪 ABOUT CARD */}
+        <section className="about-card big-card">
+          <h2>What is LocalWala?</h2>
           <p>
-            To create a future where every local shop is digitally empowered and
-            thriving in both offline and online worlds.
+            LocalWala is a platform designed to uplift local shopkeepers by helping them
+            bring their businesses online. We simplify technology so anyone can build
+            and manage their digital store.
           </p>
-        </div>
-      </section>
+        </section>
 
-      {/* 💡 FEATURES */}
-      <section className="about-section">
-        <h2>What We Offer</h2>
-
-        <div className="about-features">
-          <div className="feature-card">
-            <h4>🛍️ Easy Shop Creation</h4>
-            <p>Create your online store in minutes without coding.</p>
+        {/* 🚀 MISSION + VISION */}
+        <section className="card-grid">
+          <div className="about-card">
+            <h3>🚀 Our Mission</h3>
+            <p>
+              To make digital tools simple, accessible, and powerful for every local business.
+            </p>
           </div>
 
-          <div className="feature-card">
-            <h4>📦 Order Management</h4>
-            <p>Track and manage orders efficiently in one place.</p>
+          <div className="about-card">
+            <h3>❤️ Our Vision</h3>
+            <p>
+              A future where every local shop thrives both offline and online.
+            </p>
           </div>
+        </section>
 
-          <div className="feature-card">
-            <h4>🚚 Flexible Delivery</h4>
-            <p>Offer delivery or self-pickup options to customers.</p>
+        {/* 💡 FEATURES */}
+        <section className="about-section">
+          <h2>What We Offer</h2>
+
+          <div className="card-grid">
+            <div className="feature-card">
+              <h4>🛍️ Easy Shop Creation</h4>
+              <p>Create your store in minutes without coding.</p>
+            </div>
+
+            <div className="feature-card">
+              <h4>📦 Order Management</h4>
+              <p>Manage orders efficiently in one place.</p>
+            </div>
+
+            <div className="feature-card">
+              <h4>🚚 Flexible Delivery</h4>
+              <p>Delivery or self-pickup options.</p>
+            </div>
+
+            <div className="feature-card">
+              <h4>📸 Product Showcase</h4>
+              <p>Upload products with images easily.</p>
+            </div>
           </div>
+        </section>
 
-          <div className="feature-card">
-            <h4>📸 Product Showcase</h4>
-            <p>Upload products with images and details easily.</p>
-          </div>
-        </div>
-      </section>
+        {/* 👤 STORY CARD */}
+        <section className="about-card big-card">
+          <h2>Our Story</h2>
+          <p>
+            LocalWala was created to solve real-world problems faced by small shopkeepers.
+            We aim to make digital transformation simple, accessible, and impactful.
+          </p>
+        </section>
 
-      {/* 👤 STORY */}
-      <section className="about-section">
-        <h2>Our Story</h2>
-        <p>
-          LocalWala was built with a vision to solve real-world challenges faced by
-          small shopkeepers. Many businesses struggle to go online due to lack of
-          technical knowledge. This platform was created to bridge that gap and make
-          digital transformation accessible to everyone.
-        </p>
-      </section>
-
-    </div>
+      </div>
+    </>
   );
 }
 
