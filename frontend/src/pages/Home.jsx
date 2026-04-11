@@ -23,8 +23,14 @@ function Home() {
   }, []);
 
   const handleGetStarted = () => {
-    navigate("/auth", {  });
-  };
+  const token = localStorage.getItem("token"); // or "user"
+
+  if (token) {
+    navigate("/dashboard");
+  } else {
+    navigate("/auth");
+  }
+};
 
   return (
     <div

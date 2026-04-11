@@ -11,14 +11,14 @@ router.post("/", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "harshitbansal00000@gmail.com",
-        pass: "nvhp edls lsbb stnd"
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
     const mailOptions = {
-      from: "harshitbansal00000@gmail.com",
-      to: "harshitbansal00000@gmail.com",
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
       subject: "New Contact Message - LocalWala",
       html: `
         <h2>New Contact Message</h2>

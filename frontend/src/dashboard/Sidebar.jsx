@@ -7,7 +7,7 @@ function Sidebar({ isOpen, onClose }) {
 
   return (
     <aside className={`sidebar ${isOpen ? "open" : ""}`}>
-      <h2>LOCALWALA</h2>
+      {/* <h2>LOCALWALA</h2> */}
       <nav className="sidebar-nav">
         <Link to="/dashboard" onClick={handleNav}>Create Shop</Link>
         <Link to="/dashboard/history" onClick={handleNav}>Shop History</Link>

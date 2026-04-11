@@ -10,7 +10,7 @@ function Plans() {
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const res = await fetch("https://localwala-1.onrender.com/api/shops/my", {
+        const res = await fetch("http://localhost:5000/api/shops/my", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

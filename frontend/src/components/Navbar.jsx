@@ -75,7 +75,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("shopkeeperToken");
-    localStorage.removeItem("customerToken");
+    // localStorage.removeItem("customerToken");
     localStorage.removeItem("token");
 
     setUser(null);

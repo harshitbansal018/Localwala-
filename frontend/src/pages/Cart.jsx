@@ -22,7 +22,7 @@ const navigate = useNavigate();
     const fetchShop = async () => {
       try {
         const res = await fetch(
-          `  https://localwala-1.onrender.com/api/shops/slug/${slug}`
+          `  http://localhost:5000/api/shops/slug/${slug}`
         );
 
         if (!res.ok) {
@@ -55,7 +55,7 @@ const navigate = useNavigate();
 
     try {
       const res = await fetch(
-        `  https://localwala-1.onrender.com/api/cart/${shopId}`,
+        `  http://localhost:5000/api/cart/${shopId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ const navigate = useNavigate();
 
     try {
       await fetch(
-        `  https://localwala-1.onrender.com/api/cart/${shopId}/${productId}`,
+        `  http://localhost:5000/api/cart/${shopId}/${productId}`,
         {
           method: "DELETE",
           headers: {
@@ -139,7 +139,7 @@ const navigate = useNavigate();
     deliveryAddress: address
   });
 
-    await fetch("  https://localwala-1.onrender.com/api/orders", {
+    await fetch("  http://localhost:5000/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -166,7 +166,7 @@ const navigate = useNavigate();
   const updateQuantity = async (productId, action) => {
     try {
       await fetch(
-        `  https://localwala-1.onrender.com/api/cart/${shopId}/${productId}`,
+        `  http://localhost:5000/api/cart/${shopId}/${productId}`,
         {
           method: "PUT",
           headers: {

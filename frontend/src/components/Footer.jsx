@@ -1,9 +1,21 @@
 import React from "react";
 import "./Footer.css";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "/images/shop_logo.png";
 
 function Footer() {
+    
+const navigate = useNavigate();
+const handleGetStarted = () => {
+    const token = localStorage.getItem("token"); // or "user"
+    if(token){
+        navigate("/dashboard");
+    }
+    else{
+        navigate("/auth");
+    }
+};
     return (
         <footer className="footer">
             <div className="footer-container">
@@ -52,7 +64,10 @@ function Footer() {
             {/* CTA (🔥 add this) */}
             <div className="footer-cta">
                 <p>Start your digital journey today 🚀</p>
-                <Link to="/auth" className="footer-btn">Create Your Shop</Link>
+           <button className="footer-btn" onClick={handleGetStarted}>
+            Create Your Shop
+                </button>
+
             </div>
 
             {/* Bottom */}

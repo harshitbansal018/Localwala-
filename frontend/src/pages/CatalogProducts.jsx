@@ -14,7 +14,7 @@ function CatalogProducts() {
       setLoading(true);
       try {
         const res = await fetch(
-          `  https://localwala-1.onrender.com/api/products/catalog/${catalogId}`
+          `  http://localhost:5000/api/products/catalog/${catalogId}`
         );
         const data = await res.json();
         setProducts(Array.isArray(data) ? data : []);
@@ -35,7 +35,7 @@ function CatalogProducts() {
 
     setAddingId(product._id);
     try {
-      await fetch(`  https://localwala-1.onrender.com/api/cart/${product.shop}`, {
+      await fetch(`  http://localhost:5000/api/cart/${product.shop}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ function CatalogProducts() {
         },
         body: JSON.stringify({ productId: product._id }),
       });
-      const res = await fetch(`  https://localwala-1.onrender.com/api/cart/${product.shop}`, {
+      const res = await fetch(`  http://localhost:5000/api/cart/${product.shop}`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -60,7 +60,7 @@ if (res.status === 401) {
 }
 
       const cartRes = await fetch(
-        `  https://localwala-1.onrender.com/api/cart/${product.shop}`,
+        `  http://localhost:5000/api/cart/${product.shop}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

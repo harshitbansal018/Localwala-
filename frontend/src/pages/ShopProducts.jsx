@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./ShopProducts.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "  https://localwala-1.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL || "  http://localhost:5000";
 
 function ShopProducts() {
   const { slug } = useParams();
