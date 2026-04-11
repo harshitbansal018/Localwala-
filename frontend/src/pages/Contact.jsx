@@ -11,7 +11,7 @@ e.preventDefault();
 
 
 try {
-  const res = await fetch("  https://localwala-1.onrender.com/api/contact", {
+  const res = await fetch("https://localwala-1.onrender.com/api/contact", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
