@@ -7,7 +7,6 @@ function DeliveryForm() {
   const navigate = useNavigate();
 
   const [shopId, setShopId] = useState(null);
-  const [upiId, setUpiId] = useState("");
   const [shopPhone, setShopPhone] = useState("");
 
   const [formData, setFormData] = useState({
@@ -33,11 +32,8 @@ function DeliveryForm() {
 
         const data = await res.json();
 
-        console.log("SHOP DATA:", data);
-
         setShopId(data._id);
         setShopPhone(data.owner?.phone);
-        setUpiId(data.owner?.upiId); // 🔥 IMPORTANT
 
       } catch (error) {
         console.error("Error fetching shop:", error);
@@ -130,7 +126,7 @@ function DeliveryForm() {
         total,
         orderType: "delivery",
         deliveryAddress: formData,
-        paymentMethod: "upi",
+        paymentMethod: "pending",   // ✅ generic
         paymentStatus: "Pending"
       }),
     });
@@ -144,7 +140,7 @@ function DeliveryForm() {
   };
 
   // =========================
-  // WHATSAPP MESSAGE
+  // WHATSAPP MESSAGE (UPDATED)
   // =========================
   const sendToWhatsApp = (total) => {
     const cartItems =
@@ -166,6 +162,9 @@ function DeliveryForm() {
     message += `${formData.name}\n${formData.phone}\n`;
     message += `${formData.address}, ${formData.city}, ${formData.state} - ${formData.pincode}`;
 
+    // 🔥 NEW LINE FOR QR REQUEST
+    message += `\n\n💳 *Please share your UPI QR code for payment.*`;
+
     const encodedMessage = encodeURIComponent(message);
 
     const whatsappURL = `https://wa.me/91${shopPhone}?text=${encodedMessage}`;
@@ -174,7 +173,7 @@ function DeliveryForm() {
   };
 
   // =========================
-  // PLACE ORDER (FINAL FLOW)
+  // PLACE ORDER
   // =========================
   const placeOrder = async () => {
     if (!token) {
@@ -192,21 +191,11 @@ function DeliveryForm() {
     const total = await saveOrder();
     if (!total) return;
 
-    if (!upiId) {
-      alert("Payment not available for this shop");
-      return;
-    }
+    // ✅ ALERT
+    alert("Order placed successfully! Shopkeeper will contact you.");
 
-    // 🔥 FIXED UPI LINK
-    const upiLink = `upi://pay?pa=${upiId.trim()}&pn=${encodeURIComponent(slug)}&am=${total}&cu=INR`;
-
-    // 🔥 OPEN PAYMENT APP FIRST
-    window.location.href = upiLink;
-
-    // 🔥 SEND WHATSAPP AFTER DELAY
-    setTimeout(() => {
-      sendToWhatsApp(total);
-    }, 1500);
+    // ✅ WHATSAPP REDIRECT
+    sendToWhatsApp(total);
 
     localStorage.removeItem("cartItems");
 
@@ -226,8 +215,9 @@ function DeliveryForm() {
           <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} />
           <input type="text" name="pincode" placeholder="Pincode" value={formData.pincode} onChange={handleChange} />
 
+          {/* ✅ BUTTON TEXT UPDATED */}
           <button className="place-order-btn" onClick={placeOrder}>
-            Place Order (With Payment)
+            Place Order
           </button>
         </div>
       </div>
