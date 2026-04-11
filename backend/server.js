@@ -14,7 +14,6 @@ import orderRoutes from "./routes/orderRoutes.js";
 import customerAuthRoutes from "./routes/customerAuthRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import catalogRoutes from "./routes/catalogRoutes.js";
-import contactRoutes from "./routes/contact.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 
 
@@ -38,7 +37,6 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/customer-auth", customerAuthRoutes);
 app.use("/api/catalogs", catalogRoutes);
 app.use("/api/cart", cartRoutes);
-app.use("/api/contact", contactRoutes);
 app.use("/api/payment", paymentRoutes);
 
 /* STATIC */
