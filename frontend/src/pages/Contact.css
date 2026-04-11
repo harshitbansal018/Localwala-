@@ -49,3 +49,24 @@
 .contact-box button:hover {
   background-color: #009e74;
 }
+.contact-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+.error {
+  color: red;
+  font-size: 13px;
+  margin: 5px 0 10px;
+}
+.success {
+  color: green;
+  font-size: 13px;
+  margin: 5px 0 10px;
+}
