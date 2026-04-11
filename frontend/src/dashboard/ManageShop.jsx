@@ -26,7 +26,7 @@ function ManageShop() {
   =========================== */
   const fetchCatalogs = async () => {
     const res = await fetch(
-      `  http://localhost:5000/api/catalogs/shop/${shopId}`
+      `  https://localwala-1.onrender.com/api/catalogs/shop/${shopId}`
     );
     const data = await res.json();
     if (Array.isArray(data)) {
@@ -41,7 +41,7 @@ function ManageShop() {
     if (!catalogId) return;
 
     const res = await fetch(
-      `  http://localhost:5000/api/products/catalog/${catalogId}`
+      `  https://localwala-1.onrender.com/api/products/catalog/${catalogId}`
     );
 
     const data = await res.json();
@@ -64,7 +64,7 @@ function ManageShop() {
     if (!newCatalogName) return;
 
     await fetch(
-      `  http://localhost:5000/api/catalogs/${shopId}`,
+      `  https://localwala-1.onrender.com/api/catalogs/${shopId}`,
       {
         method: "POST",
         headers: {
@@ -89,7 +89,7 @@ function ManageShop() {
     if (!confirmDelete) return;
 
     await fetch(
-      `  http://localhost:5000/api/catalogs/${catalogId}`,
+      `  https://localwala-1.onrender.com/api/catalogs/${catalogId}`,
       {
         method: "DELETE",
         headers: {
@@ -127,7 +127,7 @@ function ManageShop() {
     let res;
     if (editingId) {
       res = await fetch(
-        `  http://localhost:5000/api/products/${editingId}`,
+        `  https://localwala-1.onrender.com/api/products/${editingId}`,
         {
           method: "PUT",
           headers: {
@@ -138,7 +138,7 @@ function ManageShop() {
       );
     } else {
       res = await fetch(
-        `  http://localhost:5000/api/products/`,
+        `  https://localwala-1.onrender.com/api/products/`,
         {
           method: "POST",
           headers: {
@@ -171,7 +171,7 @@ function ManageShop() {
   =========================== */
   const handleDeleteProduct = async (productId) => {
     await fetch(
-      `  http://localhost:5000/api/products/${productId}`,
+      `  https://localwala-1.onrender.com/api/products/${productId}`,
       {
         method: "DELETE",
         headers: {

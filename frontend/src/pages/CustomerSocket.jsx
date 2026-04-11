@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import { toast } from "react-toastify";
 
-const SOCKET_URL = " http://localhost:5000";
+const SOCKET_URL = " https://localwala-1.onrender.com";
 
 function CustomerSocket() {
   const socketRef = useRef(null);

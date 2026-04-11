@@ -20,7 +20,7 @@ function OrderTracking() {
     setSearched(true);
     try {
       const shopRes = await fetch(
-        `  http://localhost:5000/api/shops/slug/${slug}`
+        `  https://localwala-1.onrender.com/api/shops/slug/${slug}`
       );
       const shopData = await shopRes.json();
 
@@ -32,7 +32,7 @@ function OrderTracking() {
       }
 
       const orderRes = await fetch(
-        `  http://localhost:5000/api/orders/shop/${shopData._id}/${email}`
+        `  https://localwala-1.onrender.com/api/orders/shop/${shopData._id}/${email}`
       );
       const orderData = await orderRes.json();
 

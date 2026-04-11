@@ -110,7 +110,7 @@ function ShopLayout() {
     const fetchShop = async () => {
       try {
         const res = await fetch(
-          `  http://localhost:5000/api/shops/slug/${slug}`
+          `  https://localwala-1.onrender.com/api/shops/slug/${slug}`
         );
         const data = await res.json();
         setShopInfo(data);
