@@ -135,7 +135,7 @@
 .navbar {
   display: flex;
   align-items: center;
-  padding: 15px 40px;
+  padding: 15px 16px;
   background-color: #0b1c2c; /* dark blue */
 }
 

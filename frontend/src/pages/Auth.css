@@ -1,11 +1,13 @@
 /* Full Page Background */
 .auth-container {
-  height: 100vh;
+  height: auto;
   background: url("/images/auth-bg.jpg") no-repeat center center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  padding-block:61px;
+  padding-inline:16px;
 }
 
 /* Dark overlay for readability */
